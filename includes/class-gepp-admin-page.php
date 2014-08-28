@@ -1,0 +1,89 @@
+<?php
+if (!class_exists('GSY_Gepp_Admin_Page')) {
+
+    class GSY_Gepp_Admin_Page {
+
+        public function __construct() {
+            add_action('admin_menu', array($this, 'add_plugin_page'));
+            add_action('admin_init', array($this, 'page_init'));
+        }
+
+        /**
+         * Add options page
+         */
+        public function add_plugin_page() {
+            // This page will be under "Settings"
+            add_options_page(__('GSY Export Posts to PDF', 'gsy-export-posts-to-pdf'), __('Export Posts to PDF', 'gsy-export-posts-to-pdf'), 'manage_options', 'gsy-export-posts-to-pdf', array($this, 'create_admin_page'));
+        }
+
+        /**
+         * Options page callback
+         */
+        public function create_admin_page() {
+            ?>
+            <div id="gsy-export-posts-to-pdf" class="wrap">
+                <h2><?php _e('GSY Export Posts to PDF', 'gsy-export-posts-to-pdf'); ?></h2>           
+                <form method="post" action="options.php" role="form">
+                    <?php
+                    // This prints out all hidden setting fields
+                    settings_fields('gsy_export_posts_to_pdf_group');
+                    do_settings_sections('gsy-export-posts-to-pdf');
+                    submit_button();
+                    ?>
+                </form>
+            </div><!-- #gsy-export-posts-to-pdf -->
+            <?php
+        }
+
+        /**
+         * Register and add settings
+         */
+        public function page_init() {
+            register_setting(
+                    'gsy_export_posts_to_pdf_group', // Option group
+                    'gsy_export_posts_to_pdf_options', // Option name
+                    array($this, 'sanitize') // Sanitize
+            );
+
+            add_settings_section(
+                    'gsy_export_posts_to_pdf_section', // ID
+                    __('Settings', 'gsy-export-posts-to-pdf'), // Title
+                    array($this, 'print_section_info'), // Callback
+                    'gsy-export-posts-to-pdf' // Page
+            );
+
+            add_settings_field(
+                    'category_checkbox', // ID
+                    __('Show categories:', 'gsy-export-posts-to-pdf'), // Title 
+                    array($this, 'category_checkbox_callback'), // Callback
+                    'gsy-export-posts-to-pdf', // Page
+                    'gsy_export_posts_to_pdf_section' // Section
+            );
+        }
+
+        /**
+         * Sanitize each setting field as needed
+         *
+         * @param array $input Contains all settings fields as array keys
+         */
+        public function sanitize($input) {
+            return $input;
+        }
+
+        /**
+         * Print the Section text
+         */
+        public function print_section_info() {
+            
+        }
+
+        /**
+         * Get the settings option array and print one of its values
+         */
+        public function category_checkbox_callback() {
+            
+        }
+
+    }
+
+}
