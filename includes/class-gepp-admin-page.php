@@ -3,6 +3,11 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
 
     class GSY_Gepp_Admin_Page {
 
+        /**
+         * Holds the values to be used in the fields callbacks
+         */
+        private $_options;
+
         public function __construct() {
             add_action('admin_menu', array($this, 'add_plugin_page'));
             add_action('admin_init', array($this, 'page_init'));
@@ -20,15 +25,16 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
          * Options page callback
          */
         public function create_admin_page() {
+            $this->_options = get_option('gsy_export_posts_to_pdf_options');
             ?>
             <div id="gsy-export-posts-to-pdf" class="wrap">
                 <h2><?php _e('GSY Export Posts to PDF', 'gsy-export-posts-to-pdf'); ?></h2>           
-                <form method="post" action="options.php" role="form">
+                <form method="post" action="<?php echo plugins_url(); ?>/gsy-export-posts-to-pdf/gsy-pdf-exporter.php" role="form">
                     <?php
                     // This prints out all hidden setting fields
                     settings_fields('gsy_export_posts_to_pdf_group');
                     do_settings_sections('gsy-export-posts-to-pdf');
-                    submit_button();
+                    submit_button(__('Export to PDF', 'gsy-export-posts-to-pdf'));
                     ?>
                 </form>
             </div><!-- #gsy-export-posts-to-pdf -->
@@ -54,7 +60,7 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
 
             add_settings_field(
                     'category_checkbox', // ID
-                    __('Show categories:', 'gsy-export-posts-to-pdf'), // Title 
+                    __('Categories:', 'gsy-export-posts-to-pdf'), // Title 
                     array($this, 'category_checkbox_callback'), // Callback
                     'gsy-export-posts-to-pdf', // Page
                     'gsy_export_posts_to_pdf_section' // Section
@@ -81,7 +87,16 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
          * Get the settings option array and print one of its values
          */
         public function category_checkbox_callback() {
-            
+            if (isset($this->_options['category_checkbox'])) {
+                $checked = checked($this->_options['category_checkbox'], 'on', false);
+            } else {
+                $checked = '';
+            }
+
+            echo '<label>';
+            echo '<input type="checkbox" class="category-checkbox" name="gsy_export_posts_to_pdf_options[category_checkbox]" id="category_checkbox" ' . $checked . ' />';
+            echo '  ' . __('check to show categories', 'gsy-export-posts-to-pdf');
+            echo '</label>';
         }
 
     }
