@@ -26,10 +26,11 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
          */
         public function create_admin_page() {
             $this->_options = get_option('gsy_export_posts_to_pdf_options');
+            $form_action = plugins_url() . '/gsy-export-posts-to-pdf/libraries/tcpdf/examples/gsy-pdf-exporter.php';
             ?>
             <div id="gsy-export-posts-to-pdf" class="wrap">
                 <h2><?php _e('GSY Export Posts to PDF', 'gsy-export-posts-to-pdf'); ?></h2>           
-                <form method="post" action="<?php echo plugins_url(); ?>/gsy-export-posts-to-pdf/gsy-pdf-exporter.php" role="form">
+                <form method="post" action="<?php echo $form_action; ?>" role="form" target="_blank">
                     <?php
                     // This prints out all hidden setting fields
                     settings_fields('gsy_export_posts_to_pdf_group');
