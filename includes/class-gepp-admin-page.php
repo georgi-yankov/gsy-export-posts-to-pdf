@@ -35,7 +35,7 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
          */
         public function create_admin_page() {
             $this->_options = get_option('gsy_export_posts_to_pdf_options');
-            $form_action = plugins_url() . '/gsy-export-posts-to-pdf/libraries/tcpdf/examples/gsy-pdf-exporter.php';
+            $form_action = plugins_url() . '/gsy-export-posts-to-pdf/gsy-pdf-exporter.php';
             ?>
             <div id="gsy-export-posts-to-pdf" class="wrap">
                 <h2><?php _e('GSY Export Posts to PDF', 'gsy-export-posts-to-pdf'); ?></h2>           
