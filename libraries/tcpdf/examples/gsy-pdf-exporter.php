@@ -33,9 +33,20 @@ if ($the_query->have_posts()) :
     while ($the_query->have_posts()) :
         $the_query->the_post();
 
+        $categories = get_the_category();
+        $seperator = ', ';
+        $output = '';
+
+        foreach ($categories as $category) {
+            $output .= $category->name;
+            $output .= $seperator;
+        }
+
+        $output = trim($output, $seperator);
+
         $html .= '<tr>';
         $html .= '<td>' . get_the_title() . '</td>';
-        $html .= '<td>Some category</td>';
+        $html .= '<td>' . $output . '</td>';
         $html .= '</tr>';
 
     endwhile;
