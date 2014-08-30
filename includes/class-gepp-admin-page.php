@@ -69,6 +69,14 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
             );
 
             add_settings_field(
+                    'author_checkbox', // ID
+                    __('Authors:', 'gsy-export-posts-to-pdf'), // Title 
+                    array($this, 'author_checkbox_callback'), // Callback
+                    'gsy-export-posts-to-pdf', // Page
+                    'gsy_export_posts_to_pdf_section' // Section
+            );
+
+            add_settings_field(
                     'category_checkbox', // ID
                     __('Categories:', 'gsy-export-posts-to-pdf'), // Title 
                     array($this, 'category_checkbox_callback'), // Callback
@@ -91,6 +99,22 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
          */
         public function print_section_info() {
             
+        }
+
+        /**
+         * Get the settings option array and print one of its values
+         */
+        public function author_checkbox_callback() {
+            if (isset($this->_options['author_checkbox'])) {
+                $checked = checked($this->_options['author_checkbox'], 'on', false);
+            } else {
+                $checked = '';
+            }
+
+            echo '<label>';
+            echo '<input type="checkbox" class="author-checkbox" name="gsy_export_posts_to_pdf_options[author_checkbox]" id="author_checkbox" ' . $checked . ' />';
+            echo '  ' . __('check to show authors', 'gsy-export-posts-to-pdf');
+            echo '</label>';
         }
 
         /**
