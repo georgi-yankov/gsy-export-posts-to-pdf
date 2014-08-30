@@ -9,8 +9,17 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
         private $_options;
 
         public function __construct() {
+            add_action('admin_enqueue_scripts', array($this, 'gsy_export_posts_to_pdf_add_scripts'));
             add_action('admin_menu', array($this, 'add_plugin_page'));
             add_action('admin_init', array($this, 'page_init'));
+        }
+
+        /**
+         * Adding scripts for admin page
+         */
+        public function gsy_export_posts_to_pdf_add_scripts() {
+            $script_src = plugins_url('../js/script.js', __FILE__);
+            wp_enqueue_script('gsy-export-posts-to-pdf-script', $script_src, array('jquery'));
         }
 
         /**
