@@ -44,7 +44,7 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
                     // This prints out all hidden setting fields
                     settings_fields('gsy_export_posts_to_pdf_group');
                     do_settings_sections('gsy-export-posts-to-pdf');
-                    submit_button(__('Export to PDF', 'gsy-export-posts-to-pdf'));
+                    submit_button(__('Export to PDF', 'gsy-export-posts-to-pdf'), 'primary', 'submit', true, array('disabled' => 'disabled'));
                     ?>
                 </form>
             </div><!-- #gsy-export-posts-to-pdf -->
