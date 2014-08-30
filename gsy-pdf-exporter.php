@@ -1,7 +1,6 @@
 <?php
 
-chdir('../../../'); // go to WP root directory
-require_once 'wp-load.php'; // make available WP functions
+require_once '../../../wp-load.php'; // make available WP functions
 
 if (!isset($_POST['gsy_export_posts_to_pdf_options'])) {
     die(__("Sorry, the export to pdf couldn't be done!", 'gsy-export-posts-to-pdf'));
@@ -24,11 +23,14 @@ if ($the_query->have_posts()) :
     $html .= '<table>';
     $html .= '<thead>';
     $html .= '<tr>';
+    $html .= '<th></th>';
     $html .= '<th>' . __('Title', 'gsy-export-posts-to-pdf') . '</th>';
     $html .= '<th>' . __('Category', 'gsy-export-posts-to-pdf') . '</th>';
     $html .= '</tr>';
     $html .= '</thead>';
     $html .= '<tbody>';
+
+    $count_posts = 1;
 
     while ($the_query->have_posts()) :
         $the_query->the_post();
@@ -45,9 +47,12 @@ if ($the_query->have_posts()) :
         $output = trim($output, $seperator);
 
         $html .= '<tr>';
+        $html .= '<td>' . $count_posts . '.</td>';
         $html .= '<td>' . get_the_title() . '</td>';
         $html .= '<td>' . $output . '</td>';
         $html .= '</tr>';
+        
+        $count_posts++;
 
     endwhile;
 
@@ -61,11 +66,15 @@ wp_reset_postdata();
 //==============================================================
 //==============================================================
 //==============================================================
-// require mPDF class
+
 require 'libraries/mpdf/mpdf.php';
 
-$mpdf = new mPDF();
+$mpdf = new mPDF('utf-8', 'A4-L');
 
-$mpdf->WriteHTML($html);
+// LOAD a stylesheet
+$stylesheet = file_get_contents('css/mpdfstyleA4.css');
+
+$mpdf->WriteHTML($stylesheet, 1); // The parameter 1 tells that this is css/style only and no body/html/text
+$mpdf->WriteHTML($html, 2);
 $mpdf->Output();
 exit;

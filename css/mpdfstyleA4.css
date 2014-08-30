@@ -1,0 +1,20 @@
+table {
+  background: #fff;
+  border-collapse: collapse;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 12px;
+  line-height: 1.6em;
+  margin: 45px;
+  text-align: left;
+  width: 480px; }
+
+th {
+  border-bottom: 2px solid #6678b1;
+  color: #039;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 10px 8px; }
+
+td {
+  color: #669;
+  padding: 9px 8px 0px 8px; }
