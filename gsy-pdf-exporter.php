@@ -2,8 +2,8 @@
 
 require_once '../../../wp-load.php'; // make available WP functions
 
-if (!isset($_POST['gsy_export_posts_to_pdf_options'])) {
-    die(__("Sorry, the export to pdf couldn't be done!", 'gsy-export-posts-to-pdf'));
+if (!isset($_POST['option_page']) || ($_POST['option_page'] !== 'gsy_export_posts_to_pdf_group')) {
+    header('Location: ' . home_url('/'));
 }
 
 extract($_POST['gsy_export_posts_to_pdf_options']);
@@ -51,7 +51,7 @@ if ($the_query->have_posts()) :
         $html .= '<td>' . get_the_title() . '</td>';
         $html .= '<td>' . $output . '</td>';
         $html .= '</tr>';
-        
+
         $count_posts++;
 
     endwhile;
