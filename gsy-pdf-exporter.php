@@ -56,25 +56,25 @@ if ($the_query->have_posts()) :
     $html .= '<tr>';
 
     if ($export_counter) {
-        $html .= '<th></th>';
+        $html .= '<th class="counter-th"></th>';
     }
 
-    $html .= '<th>' . __('Title', 'gsy-export-posts-to-pdf') . '</th>';
+    $html .= '<th class="title-th">' . __('Title', 'gsy-export-posts-to-pdf') . '</th>';
 
     if ($export_authors) {
-        $html .= '<th>' . __('Author', 'gsy-export-posts-to-pdf') . '</th>';
+        $html .= '<th class="authors-th">' . __('Author', 'gsy-export-posts-to-pdf') . '</th>';
     }
 
     if ($export_categories) {
-        $html .= '<th>' . __('Categories', 'gsy-export-posts-to-pdf') . '</th>';
+        $html .= '<th class="categories-th">' . __('Categories', 'gsy-export-posts-to-pdf') . '</th>';
     }
 
     if ($export_comments) {
-        $html .= '<th>' . __('Comments', 'gsy-export-posts-to-pdf') . '</th>';
+        $html .= '<th class="comments-th">' . __('Comments', 'gsy-export-posts-to-pdf') . '</th>';
     }
 
     if ($export_date) {
-        $html .= '<th>' . __('Date', 'gsy-export-posts-to-pdf') . '</th>';
+        $html .= '<th class="date-th">' . __('Date', 'gsy-export-posts-to-pdf') . '</th>';
     }
 
     $html .= '</tr>';
@@ -89,25 +89,25 @@ if ($the_query->have_posts()) :
         $html .= '<tr>';
 
         if ($export_counter) {
-            $html .= '<td>' . $count_posts . '.</td>';
+            $html .= '<td class="counter-td">' . $count_posts . '.</td>';
         }
 
-        $html .= '<td>' . get_the_title() . '</td>';
+        $html .= '<td class="title-td">' . get_the_title() . '</td>';
 
         if ($export_authors) {
-            $html .= '<td>' . collect_author_data($post->ID) . '</td>';
+            $html .= '<td class="authors-td">' . collect_author_data($post->ID) . '</td>';
         }
 
         if ($export_categories) {
-            $html .= '<td>' . collect_categories($post->ID) . '</td>';
+            $html .= '<td class="categories-td">' . collect_categories($post->ID) . '</td>';
         }
 
         if ($export_comments) {
-            $html .= '<td>' . get_comments_number($post->ID) . '</td>';
+            $html .= '<td class="comments-td">' . get_comments_number($post->ID) . '</td>';
         }
 
         if ($export_date) {
-            $html .= '<td>' . get_the_date('', $post->ID) . '</td>';
+            $html .= '<td class="date-td">' . get_the_date('', $post->ID) . '</td>';
         }
 
         $html .= '</tr>';
