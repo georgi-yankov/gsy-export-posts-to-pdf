@@ -57,8 +57,7 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
         public function page_init() {
             register_setting(
                     'gsy_export_posts_to_pdf_group', // Option group
-                    'gsy_export_posts_to_pdf_options', // Option name
-                    array($this, 'sanitize') // Sanitize
+                    'gsy_export_posts_to_pdf_options'
             );
 
             add_settings_section(
@@ -83,15 +82,6 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
                     'gsy-export-posts-to-pdf', // Page
                     'gsy_export_posts_to_pdf_section' // Section
             );
-        }
-
-        /**
-         * Sanitize each setting field as needed
-         *
-         * @param array $input Contains all settings fields as array keys
-         */
-        public function sanitize($input) {
-            return $input;
         }
 
         /**
