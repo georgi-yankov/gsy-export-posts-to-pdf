@@ -6,8 +6,19 @@ if (!isset($_POST['option_page']) || ($_POST['option_page'] !== 'gsy_export_post
     header('Location: ' . home_url('/'));
 }
 
+$export_authors = false;
+$export_categories = false;
+
 if (isset($_POST['gsy_export_posts_to_pdf_options'])) {
-    extract($_POST['gsy_export_posts_to_pdf_options']);
+    if (isset($_POST['gsy_export_posts_to_pdf_options']['author_checkbox']) &&
+            $_POST['gsy_export_posts_to_pdf_options']['author_checkbox'] === 'on') {
+        $export_authors = true;
+    }
+
+    if (isset($_POST['gsy_export_posts_to_pdf_options']['category_checkbox']) &&
+            $_POST['gsy_export_posts_to_pdf_options']['category_checkbox'] === 'on') {
+        $export_categories = true;
+    }
 }
 
 $args = array(
@@ -27,7 +38,15 @@ if ($the_query->have_posts()) :
     $html .= '<tr>';
     $html .= '<th></th>';
     $html .= '<th>' . __('Title', 'gsy-export-posts-to-pdf') . '</th>';
-    $html .= '<th>' . __('Category', 'gsy-export-posts-to-pdf') . '</th>';
+
+    if ($export_authors) {
+        $html .= '<th>' . __('Author', 'gsy-export-posts-to-pdf') . '</th>';
+    }
+
+    if ($export_categories) {
+        $html .= '<th>' . __('Categories', 'gsy-export-posts-to-pdf') . '</th>';
+    }
+
     $html .= '</tr>';
     $html .= '</thead>';
     $html .= '<tbody>';
@@ -37,21 +56,18 @@ if ($the_query->have_posts()) :
     while ($the_query->have_posts()) :
         $the_query->the_post();
 
-        $categories = get_the_category();
-        $seperator = ', ';
-        $output = '';
-
-        foreach ($categories as $category) {
-            $output .= $category->name;
-            $output .= $seperator;
-        }
-
-        $output = trim($output, $seperator);
-
         $html .= '<tr>';
         $html .= '<td>' . $count_posts . '.</td>';
         $html .= '<td>' . get_the_title() . '</td>';
-        $html .= '<td>' . $output . '</td>';
+
+        if ($export_authors) {
+            $html .= '<td>' . collect_author_data($post->ID) . '</td>';
+        }
+
+        if ($export_categories) {
+            $html .= '<td>' . collect_categories($post->ID) . '</td>';
+        }
+
         $html .= '</tr>';
 
         $count_posts++;
@@ -64,6 +80,28 @@ else:
     $html = __('Sorry, no posts to be exported!', 'gsy-export-posts-to-pdf');
 endif;
 wp_reset_postdata();
+
+function collect_author_data($post_id) {
+    $post = get_post($post_id);
+    $author_id = $post->post_author;
+    $author_name = get_the_author_meta('user_nicename', $author_id);
+
+    return $author_name;
+}
+
+function collect_categories($post_id) {
+    $categories = get_the_category($post_id);
+    $seperator = ', ';
+    $result = '';
+
+    foreach ($categories as $category) {
+        $result .= $category->name;
+        $result .= $seperator;
+    }
+
+    $result = trim($result, $seperator);
+    return $result;
+}
 
 //==============================================================
 //==============================================================
