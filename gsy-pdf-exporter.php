@@ -8,6 +8,7 @@ if (!isset($_POST['option_page']) || ($_POST['option_page'] !== 'gsy_export_post
 
 $export_authors = false;
 $export_categories = false;
+$export_comments = false;
 
 if (isset($_POST['gsy_export_posts_to_pdf_options'])) {
     if (isset($_POST['gsy_export_posts_to_pdf_options']['author_checkbox']) &&
@@ -18,6 +19,11 @@ if (isset($_POST['gsy_export_posts_to_pdf_options'])) {
     if (isset($_POST['gsy_export_posts_to_pdf_options']['category_checkbox']) &&
             $_POST['gsy_export_posts_to_pdf_options']['category_checkbox'] === 'on') {
         $export_categories = true;
+    }
+
+    if (isset($_POST['gsy_export_posts_to_pdf_options']['comments_checkbox']) &&
+            $_POST['gsy_export_posts_to_pdf_options']['comments_checkbox'] === 'on') {
+        $export_comments = true;
     }
 }
 
@@ -47,6 +53,10 @@ if ($the_query->have_posts()) :
         $html .= '<th>' . __('Categories', 'gsy-export-posts-to-pdf') . '</th>';
     }
 
+    if ($export_comments) {
+        $html .= '<th>' . __('Comments', 'gsy-export-posts-to-pdf') . '</th>';
+    }
+
     $html .= '</tr>';
     $html .= '</thead>';
     $html .= '<tbody>';
@@ -66,6 +76,10 @@ if ($the_query->have_posts()) :
 
         if ($export_categories) {
             $html .= '<td>' . collect_categories($post->ID) . '</td>';
+        }
+
+        if ($export_comments) {
+            $html .= '<td>' . get_comments_number($post->ID) . '</td>';
         }
 
         $html .= '</tr>';

@@ -76,6 +76,14 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
                     'gsy-export-posts-to-pdf', // Page
                     'gsy_export_posts_to_pdf_section' // Section
             );
+
+            add_settings_field(
+                    'comments_checkbox', // ID
+                    __('Comments:', 'gsy-export-posts-to-pdf'), // Title 
+                    array($this, 'comments_checkbox_callback'), // Callback
+                    'gsy-export-posts-to-pdf', // Page
+                    'gsy_export_posts_to_pdf_section' // Section
+            );
         }
 
         /**
@@ -102,6 +110,16 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
             echo '<label>';
             echo '<input type="checkbox" class="category-checkbox" name="gsy_export_posts_to_pdf_options[category_checkbox]" id="category_checkbox" />';
             echo '  ' . __('check to show categories', 'gsy-export-posts-to-pdf');
+            echo '</label>';
+        }
+
+        /**
+         * Get the settings option array and print one of its values
+         */
+        public function comments_checkbox_callback() {
+            echo '<label>';
+            echo '<input type="checkbox" class="comments-checkbox" name="gsy_export_posts_to_pdf_options[comments_checkbox]" id="comments_checkbox" />';
+            echo '  ' . __('check to show the number of comments', 'gsy-export-posts-to-pdf');
             echo '</label>';
         }
 
