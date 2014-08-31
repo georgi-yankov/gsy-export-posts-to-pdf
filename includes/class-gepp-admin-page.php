@@ -62,6 +62,14 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
             );
 
             add_settings_field(
+                    'counter_checkbox', // ID
+                    __('Counter:', 'gsy-export-posts-to-pdf'), // Title 
+                    array($this, 'counter_checkbox_callback'), // Callback
+                    'gsy-export-posts-to-pdf', // Page
+                    'gsy_export_posts_to_pdf_section' // Section
+            );
+
+            add_settings_field(
                     'author_checkbox', // ID
                     __('Author:', 'gsy-export-posts-to-pdf'), // Title 
                     array($this, 'author_checkbox_callback'), // Callback
@@ -99,6 +107,16 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
          */
         public function print_section_info() {
             
+        }
+
+        /**
+         * Get the settings option array and print one of its values
+         */
+        public function counter_checkbox_callback() {
+            echo '<label>';
+            echo '<input type="checkbox" class="counter-checkbox" name="gsy_export_posts_to_pdf_options[counter_checkbox]" id="counter_checkbox" />';
+            echo '  ' . __('check to count posts', 'gsy-export-posts-to-pdf');
+            echo '</label>';
         }
 
         /**

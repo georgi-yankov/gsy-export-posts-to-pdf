@@ -6,12 +6,18 @@ if (!isset($_POST['option_page']) || ($_POST['option_page'] !== 'gsy_export_post
     header('Location: ' . home_url('/'));
 }
 
+$export_counter = false;
 $export_authors = false;
 $export_categories = false;
 $export_comments = false;
 $export_date = false;
 
 if (isset($_POST['gsy_export_posts_to_pdf_options'])) {
+    if (isset($_POST['gsy_export_posts_to_pdf_options']['counter_checkbox']) &&
+            $_POST['gsy_export_posts_to_pdf_options']['counter_checkbox'] === 'on') {
+        $export_counter = true;
+    }
+
     if (isset($_POST['gsy_export_posts_to_pdf_options']['author_checkbox']) &&
             $_POST['gsy_export_posts_to_pdf_options']['author_checkbox'] === 'on') {
         $export_authors = true;
@@ -48,7 +54,11 @@ if ($the_query->have_posts()) :
     $html .= '<table>';
     $html .= '<thead>';
     $html .= '<tr>';
-    $html .= '<th></th>';
+
+    if ($export_counter) {
+        $html .= '<th></th>';
+    }
+
     $html .= '<th>' . __('Title', 'gsy-export-posts-to-pdf') . '</th>';
 
     if ($export_authors) {
@@ -77,7 +87,11 @@ if ($the_query->have_posts()) :
         $the_query->the_post();
 
         $html .= '<tr>';
-        $html .= '<td>' . $count_posts . '.</td>';
+
+        if ($export_counter) {
+            $html .= '<td>' . $count_posts . '.</td>';
+        }
+
         $html .= '<td>' . get_the_title() . '</td>';
 
         if ($export_authors) {
