@@ -6,7 +6,9 @@ if (!isset($_POST['option_page']) || ($_POST['option_page'] !== 'gsy_export_post
     header('Location: ' . home_url('/'));
 }
 
-extract($_POST['gsy_export_posts_to_pdf_options']);
+if (isset($_POST['gsy_export_posts_to_pdf_options'])) {
+    extract($_POST['gsy_export_posts_to_pdf_options']);
+}
 
 $args = array(
     'post_type' => 'post',
@@ -59,7 +61,7 @@ if ($the_query->have_posts()) :
     $html .= '</tbody>';
     $html .= '</table>';
 else:
-// TODO: no posts to show
+    $html = __('Sorry, no posts to be exported!', 'gsy-export-posts-to-pdf');
 endif;
 wp_reset_postdata();
 
