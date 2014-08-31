@@ -3,11 +3,6 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
 
     class GSY_Gepp_Admin_Page {
 
-        /**
-         * Holds the values to be used in the fields callbacks
-         */
-        private $_options;
-
         public function __construct() {
             add_action('admin_enqueue_scripts', array($this, 'gsy_export_posts_to_pdf_add_scripts'));
             add_action('admin_menu', array($this, 'add_plugin_page'));
@@ -34,7 +29,6 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
          * Options page callback
          */
         public function create_admin_page() {
-            $this->_options = get_option('gsy_export_posts_to_pdf_options');
             $form_action = plugins_url() . '/gsy-export-posts-to-pdf/gsy-pdf-exporter.php';
             ?>
             <div id="gsy-export-posts-to-pdf" class="wrap">
@@ -95,14 +89,8 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
          * Get the settings option array and print one of its values
          */
         public function author_checkbox_callback() {
-            if (isset($this->_options['author_checkbox'])) {
-                $checked = checked($this->_options['author_checkbox'], 'on', false);
-            } else {
-                $checked = '';
-            }
-
             echo '<label>';
-            echo '<input type="checkbox" class="author-checkbox" name="gsy_export_posts_to_pdf_options[author_checkbox]" id="author_checkbox" ' . $checked . ' />';
+            echo '<input type="checkbox" class="author-checkbox" name="gsy_export_posts_to_pdf_options[author_checkbox]" id="author_checkbox" />';
             echo '  ' . __('check to show authors', 'gsy-export-posts-to-pdf');
             echo '</label>';
         }
@@ -111,14 +99,8 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
          * Get the settings option array and print one of its values
          */
         public function category_checkbox_callback() {
-            if (isset($this->_options['category_checkbox'])) {
-                $checked = checked($this->_options['category_checkbox'], 'on', false);
-            } else {
-                $checked = '';
-            }
-
             echo '<label>';
-            echo '<input type="checkbox" class="category-checkbox" name="gsy_export_posts_to_pdf_options[category_checkbox]" id="category_checkbox" ' . $checked . ' />';
+            echo '<input type="checkbox" class="category-checkbox" name="gsy_export_posts_to_pdf_options[category_checkbox]" id="category_checkbox" />';
             echo '  ' . __('check to show categories', 'gsy-export-posts-to-pdf');
             echo '</label>';
         }
