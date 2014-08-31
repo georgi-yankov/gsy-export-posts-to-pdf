@@ -31,3 +31,4 @@
 require_once 'includes/class-gepp-admin-page.php';
 
 $gsy_export_posts_to_pdf = new GSY_Gepp_Admin_Page();
+load_plugin_textdomain('gsy-export-posts-to-pdf', false, plugin_basename(dirname(__FILE__) . '/localization/'));
