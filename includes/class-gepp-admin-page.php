@@ -4,8 +4,20 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
     class GSY_Gepp_Admin_Page {
 
         public function __construct() {
+            add_action('admin_enqueue_scripts', array($this, 'gsy_export_posts_to_pdf_add_styles'));
             add_action('admin_menu', array($this, 'add_plugin_page'));
             add_action('admin_init', array($this, 'page_init'));
+        }
+
+        /**
+         * Adding styles for admin page
+         */
+        public function gsy_export_posts_to_pdf_add_styles($hook) {
+            // Load styles only for the plugin's option page            
+            if ($hook === 'settings_page_gsy-export-posts-to-pdf') {
+                $style_src = plugins_url('../css/style.css', __FILE__);
+                wp_enqueue_style('gsy-export-posts-to-pdf-style', $style_src);
+            }
         }
 
         /**
