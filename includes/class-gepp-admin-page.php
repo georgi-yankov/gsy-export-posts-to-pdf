@@ -84,6 +84,14 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
                     'gsy-export-posts-to-pdf', // Page
                     'gsy_export_posts_to_pdf_section' // Section
             );
+
+            add_settings_field(
+                    'date_checkbox', // ID
+                    __('Date:', 'gsy-export-posts-to-pdf'), // Title 
+                    array($this, 'date_checkbox_callback'), // Callback
+                    'gsy-export-posts-to-pdf', // Page
+                    'gsy_export_posts_to_pdf_section' // Section
+            );
         }
 
         /**
@@ -120,6 +128,16 @@ if (!class_exists('GSY_Gepp_Admin_Page')) {
             echo '<label>';
             echo '<input type="checkbox" class="comments-checkbox" name="gsy_export_posts_to_pdf_options[comments_checkbox]" id="comments_checkbox" />';
             echo '  ' . __('check to show the number of comments', 'gsy-export-posts-to-pdf');
+            echo '</label>';
+        }
+
+        /**
+         * Get the settings option array and print one of its values
+         */
+        public function date_checkbox_callback() {
+            echo '<label>';
+            echo '<input type="checkbox" class="date-checkbox" name="gsy_export_posts_to_pdf_options[date_checkbox]" id="date_checkbox" />';
+            echo '  ' . __('check to show date', 'gsy-export-posts-to-pdf');
             echo '</label>';
         }
 
