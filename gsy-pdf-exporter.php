@@ -146,23 +146,13 @@ $arr = array(
         'color' => '#969696'
     ),
     'R' => array(
-        'content' => '{DATE j-m-Y}',
-        'font-size' => '10',
-        'color' => '#969696'
-    ),
-);
-
-$mpdf->SetHeader($arr, 'O');
-
-$arr = array(
-    'R' => array(
         'content' => __('Page', 'gsy-export-posts-to-pdf') . ' {PAGENO}',
         'font-size' => '10',
         'color' => '#969696'
     ),
 );
 
-$mpdf->SetFooter($arr, 'O');
+$mpdf->SetHeader($arr, 'O');
 
 // LOAD a stylesheet
 $stylesheet = file_get_contents('css/mpdfstyleA4.css');
