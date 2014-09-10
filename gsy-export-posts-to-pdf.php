@@ -28,7 +28,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-require_once 'includes/class-gepp-admin-page.php';
+require_once 'includes/class-gsy-export-posts-to-pdf.php';
 
-$gsy_export_posts_to_pdf = new GSY_Gepp_Admin_Page();
+$gsy_export_posts_to_pdf = new GSY_Export_Posts_To_Pdf();
 load_plugin_textdomain('gsy-export-posts-to-pdf', false, plugin_basename(dirname(__FILE__) . '/localization/'));

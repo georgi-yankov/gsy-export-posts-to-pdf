@@ -1,5 +1,6 @@
 === GSY Export Posts to PDF ===
 Contributors: georgisyankov
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NFQECF9RKKVNL
 Tags: export, posts, pdf, gsy
 Requires at least: 3.0.1
 Tested up to: 3.9.2
